@@ -1,14 +1,13 @@
 #pragma once
-#inclide "Device.h"
+#include "Device.h"
 
 class iPin : public Device {
 private:
   int inputVal;
-  int inputNum;
 public:
-  iPin(iVal, iNum): inputVal(iVal), inputNum(iNum) {};
+  iPin() {};
 
   int getOutput() const override {
-
+    return inputVal;
   }
 }
