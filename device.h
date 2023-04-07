@@ -4,8 +4,13 @@ using namespace std;
 
 class Device {
 protected:
-  vector<device *> iPins;
+  int inputNum;   // could be pin number or gate number
+  int inputType;
+  vector<Device *> iPins;
 public:
-  void addInputPin(device *d);
-  void getOutput(); // tmp-def
+  Device(int _inputNum, int _inputType): inputNum(inputNum), inputType(_inputType) {};
+  void addInputPin(Device *inputPin) {
+    iPins.append(inputPin);
+  }
+  virtual void getOutput(); // tmp-def
 }
