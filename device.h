@@ -12,5 +12,5 @@ public:
   void addInputPin(Device *inputPin) {
     iPins.append(inputPin);
   }
-  virtual void getOutput(); // tmp-def
+  virtual int getOutput() = 0; // tmp-def
 }
