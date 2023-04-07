@@ -2,13 +2,11 @@
 #inclide "Device.h"
 
 class gateAND : public Device {
-private:
-  int inputVal = 0;   // this value might not be inputed
 public:
-  gateAND(int iVal = 0): inputVal(iVal) {};
+  gateAND() {};
 
   int getOutput() const override {
-    int output = this->inputVal;
+    int output = 1;
     for auto dev in iPins:
       output &= dev.getOutput();
     return output;
