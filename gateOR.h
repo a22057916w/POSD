@@ -1,5 +1,5 @@
 #pragma once
-#inclide "Device.h"
+#include "Device.h"
 
 class gateOR : public Device {
 public:
