@@ -18,7 +18,7 @@ public:
   }
 
   string getType() const override {
-    return "oPin";
+    return gate->getType();
   }
 
   void setCircuitOPinFalse() {
