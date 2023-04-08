@@ -98,3 +98,7 @@ int LogicSimulator::getOPinSize() {
 void LogicSimulator::setIPinsValue(int index, int value) {
   iPins[index]->setVal(value);
 }
+
+int LogicSimulator::getIPinsValue(int index) {
+  return iPins[index]->getOutput();
+}

@@ -36,5 +36,6 @@ public:
   int getOPinSize();
 
   // values
-  void setIPinsValue();
+  void setIPinsValue(int index, int value);
+  int getIPinsValue(int index);
 };
