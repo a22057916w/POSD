@@ -27,7 +27,7 @@ public:
         cin >> filename;
 
         if(LS_ptr->load(filename))
-          cout << "tmp" << endl;
+          LS_ptr->getLayout();
         else
           cout << "File not found or file format error!!" << endl;
       }

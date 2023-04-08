@@ -23,6 +23,8 @@ private:
 public:
   string getSimulationResult(vector<string> v_tmp);
   string getTruthTable();
+  string getLayout();
+  
   bool load(string filename);
   bool isLoaded();
 };

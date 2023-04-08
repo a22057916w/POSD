@@ -12,6 +12,17 @@
 
 using namespace std;
 
+string LogicSimulator::getLayout() {
+  int circuitOut = 0;
+  for(auto oPin : oPins)
+    if(oPin->isCircuitOutput())
+      circuitOut++;
+
+  cout << "Circuit: " << iPins.size() << " input pins, "
+    << circuitOut << " output pins and "
+    << oPins.size() << " gates\n";
+}
+
 bool LogicSimulator::load(string filename) {
   ifstream file(filename);
   if(!file.good()) {
