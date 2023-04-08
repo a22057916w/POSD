@@ -10,4 +10,4 @@ public:
   int getOutput() const override {
     return inputVal;
   }
-}
+};

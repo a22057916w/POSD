@@ -8,7 +8,7 @@ public:
   int getOutput() const override {
     int output = 0;
     for(auto dev : iPins)
-      output |= dev.getOutput();
+      output |= dev->getOutput();
     return output;
   }
 };
