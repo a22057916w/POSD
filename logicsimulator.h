@@ -18,7 +18,7 @@ using namespace std;
 class LogicSimulator {
 private:
   vector<Device *> circuit;
-  vector<Device *> iPins;
+  vector<iPin *> iPins;
   vector<oPin *> oPins;
 
   bool is_loaded = false;
