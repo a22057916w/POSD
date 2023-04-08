@@ -20,11 +20,21 @@ private:
   vector<Device *> circuit;
   vector<Device *> iPins;
   vector<oPin *> oPins;
+
+  bool is_loaded = false;
 public:
   string getSimulationResult(vector<string> v_tmp);
   string getTruthTable();
   string getLayout();
-  
+
   bool load(string filename);
+  void setloaded();
   bool isLoaded();
+
+  // size
+  int getIPinSize();
+  int getOPinSize();
+
+  // values
+  void setIPinsValue();
 };
