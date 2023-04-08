@@ -4,12 +4,16 @@
 
 class iPin : public Device {
 private:
-  int inputVal;
+  int val;
 public:
   iPin() {};
 
+  void setVal(int value) {
+    val = value;
+  }
+
   int getOutput() const override {
-    return inputVal;
+    return val;
   }
 
   string getType() const override {
