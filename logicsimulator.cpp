@@ -78,3 +78,23 @@ bool LogicSimulator::load(string filename) {
 
   return true;
 }
+
+void LogicSimulator::setloaded() {
+  is_loaded = true;
+}
+
+bool LogicSimulator::isLoaded() {
+  return is_loaded;
+}
+
+int LogicSimulator::getIPinSize() {
+  return iPins.size();
+}
+
+int LogicSimulator::getOPinSize() {
+  return oPins.size();
+}
+
+void LogicSimulator::setIPinsValue(int index, int value) {
+  iPins[index]->setVal(value);
+}
