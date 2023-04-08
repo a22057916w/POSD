@@ -1,5 +1,6 @@
 #pragma once
 #include "Device.h"
+#include <string>
 
 class oPin : public Device {
 private:
@@ -14,6 +15,10 @@ public:
 
   int getOutput() const override {
     return gate->getOutput();  // the iPins only connect to one gate
+  }
+
+  string getType() const override {
+    return "oPin";
   }
 
   void setCircuitOPinFalse() {

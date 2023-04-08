@@ -1,5 +1,6 @@
 #pragma once
 #include "Device.h"
+#include <string>
 
 class gateNOT : public Device {
 public:

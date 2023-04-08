@@ -1,5 +1,6 @@
 #pragma once
 #include "Device.h"
+#include <string>
 
 class gateOR : public Device {
 public:
