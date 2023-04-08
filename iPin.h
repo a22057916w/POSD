@@ -10,4 +10,8 @@ public:
   int getOutput() const override {
     return inputVal;
   }
+
+  string getType() const override {
+    return "iPin";
+  }
 };

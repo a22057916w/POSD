@@ -11,4 +11,8 @@ public:
       output &= dev->getOutput();
     return output;
   }
+
+  string getType() const override {
+    return "gateAND";
+  }
 };
