@@ -4,15 +4,19 @@
 class oPin : public Device {
 private:
   bool circuitOPin = true;
-  Device *gate;
+  Device *gate = NULL;
 public:
-  oPin(Device *_gate): gate(_gate) {};
+  oPin() {};
+
+  void addGate(Device *gate) {
+    this->gate = gate;
+  }
 
   int getOutput() const override {
     return gate->getOutput();  // the iPins only connect to one gate
   }
 
-  void setCircuitOPin() {
+  void setCircuitOPinFalse() {
     circuitOPin = false;
   }
 
