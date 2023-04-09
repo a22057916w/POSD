@@ -22,19 +22,31 @@ private:
   vector<Device *> circuit;
   vector<iPin *> iPins;
   vector<oPin *> oPins;
+  vector<
 
-  string truthTable = "";
+  vector<int> simulationValues;
+  string simulationResult;
+  string truthTable;
   bool is_loaded = false;
 
   void setTruthTableValue(vvi &input, vvi &output, int combiations);
   void drawTruthTable(vvi &input, vvi& output, int combiations);
 
+  void runSimulation();
+  void drawSimulationTable();
+
 public:
-  vector<int> getSimulationResult();
+  // simulation
+  string getSimulationResult();
+  void setSimulationResult();
+
+  // truth table
   string getTruthTable();
   void setTruthTable();
+
   string getLayout();
 
+  // load
   bool load(string filename);
   void setloaded();
   bool isLoaded();

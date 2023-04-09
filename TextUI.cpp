@@ -20,7 +20,8 @@ void TextUI::processCommand() {
     }
     else if(command == 2) {
       readInputPins();
-      LS->getSimulationResult();
+      LS->setSimulationResult();
+      cout << LS->getSimulationResult() << endl;
     }
     else if(command == 3) {
       displayTruthTable();
@@ -82,7 +83,7 @@ void TextUI::displayTruthTable() {
       cout << "Please load an lcf file, before using this operation." << endl;
       return;
   }
-  
+
   LS->setTruthTable();
   string truthTable = LS->getTruthTable();
   cout << truthTable << endl;

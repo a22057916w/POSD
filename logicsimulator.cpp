@@ -28,7 +28,9 @@ void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int
 
     int row = num_bit;  //  total rows = num_comb - 1, started with 0
 
-    vector<int> outputs = getSimulationResult();
+    runSimulation();
+
+    vector<int> outputs = this->simulationValues;
     output_table.push_back(outputs);
 
     vector<int> inputs;
@@ -87,19 +89,67 @@ void LogicSimulator::drawTruthTable(vvi &input_table, vvi &output_table, int num
   this->truthTable = table;
 }
 
-// public method:
 
-vector<int> LogicSimulator::getSimulationResult() {
-  vector<int> result;
-  for(auto oPin : oPins)
-    if(oPin->isCircuitOutput())
-      result.push_back(oPin->getOutput());
-  return result;
+void LogicSimulator::drawSimulationTable() {
+  string table = "";
+
+  // input/output table has same column numbers in every row;
+  int input_col = getIPinSize();
+  int output_col = this->simulationValues.size();
+
+  // print i i i i .... | o o o....
+  for(int i = 0; i < input_col; i++)
+    table += "i ";
+  table += "|";
+  for(int i = 0; i < output_col; i++)
+    table += " o";
+  table += "\n";
+
+  // print 1 2 3 4... | 1 2 3 ...
+  for(int i = 0; i < input_col; i++)
+    table += to_string(i+1) + " ";
+  table += "|";
+  for(int i = 0; i < output_col; i++)
+    table += " " + to_string(i+1);
+  table += "\n";
+
+  // print ------+---
+  for(int i = 0; i < input_col; i++)
+    table += "--";
+  table += "+";
+  for(int i = 0; i < output_col; i++)
+    table += "--";
+  table += "\n";
+
+  // print the simulation result
+  for(auto iPin : this->iPins)
+    table += to_string(iPin->getOutput()) + " ";
+  table += "|";
+  for(int output : this->simulationValues)
+    table += " " + to_string(output);
+  table += "\n";
+
+  this->simulationResult = table;
 }
 
-// string LogicSimulator::getSimulationResult() {    // need to print table !!!
-//   return result;
-// }
+// public method:
+
+void LogicSimulator::runSimulation() {
+  vector<int> values;
+  for(auto oPin : oPins)
+    if(oPin->isCircuitOutput())
+      values.push_back(oPin->getOutput());
+  this->simulationValues = values;
+}
+
+void LogicSimulator::setSimulationResult() {
+  runSimulation();
+  drawSimulationTable();
+}
+
+string LogicSimulator::getSimulationResult() {    // need to print table !!!
+  return simulationResult;
+}
 
 
 string LogicSimulator::getLayout() {
