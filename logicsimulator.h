@@ -1,17 +1,11 @@
 #pragma once
 
 #include "Device.h"
-#include "gateAND.h"
-#include "gateNOT.h"
-#include "gateOR.h"
 #include "iPin.h"
 #include "oPin.h"
 
 #include <vector>
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <cstdlib>
 
 typedef vector<vector<int>> vvi;
 
@@ -22,7 +16,6 @@ private:
   vector<Device *> circuit;
   vector<iPin *> iPins;
   vector<oPin *> oPins;
-  vector<
 
   vector<int> simulationValues;
   string simulationResult;
