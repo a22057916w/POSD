@@ -14,9 +14,15 @@
 using namespace std;
 
 string LogicSimulator::getSimulationResult() {    // need to print table !!!
+  string result = "";
+
   for(auto oPin : oPins)
-    if(oPin->isCircuitOutput())
+    if(oPin->isCircuitOutput()) {
       cout << oPin->getOutput() << endl;
+      result += to_string(oPin->getOutput()) + " ";
+    }
+
+  return result;
 }
 
 
@@ -40,8 +46,8 @@ string LogicSimulator::getTruthTable() {
 
   int binary_num = 0b0;
 
-  vector<int> iPin_value(iPins.size(), 0);
-  vector<int> oPin_value(oPins.size(), 0);
+  vector<vector<int>> iPin_value;
+  vector<vector<int>> oPin_value;
 
   int iPinSize = iPins.size();
   cout << "iPins Size: " << iPins.size() << endl;
@@ -51,10 +57,11 @@ string LogicSimulator::getTruthTable() {
     int binary_temp = binary_num;
 
 
-    for(int i = 0; i < iPins.size(); i++) {
+    for(int i = iPins.size() - 1; i >= 0; i--) {
       int least_bit = binary_temp & 0b1;
       cout << "i: " << i << " binary_temp: " << binary_temp << " least_bit: " << least_bit << endl;
       iPins[i]->setVal(least_bit);
+      iPin_value.push_back()
       binary_temp >>= 1;
     }
 
@@ -65,8 +72,12 @@ string LogicSimulator::getTruthTable() {
     }
     cout << endl;
 
+    string output = getSimulationResult();
+    cout << "oPin: " + output << endl;
+
     binary_num++;   // increase the nuumber to 2^x-1
   }
+
   cout << "~getTruthTable" << endl;
 }
 

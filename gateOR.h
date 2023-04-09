@@ -8,12 +8,12 @@ public:
 
   int getOutput() const override {
     int output = 0;
-    cout << "gateOR:" << endl;
+    // cout << "gateOR:" << endl;
     for(auto dev : iPins) {
       output |= dev->getOutput();
     }
-    cout << "output: " << output << endl;
-    cout << "~gateOR:" << endl;
+    // cout << "output: " << output << endl;
+    // cout << "~gateOR:" << endl;
     return output;
   }
 
