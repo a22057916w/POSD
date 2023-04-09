@@ -6,9 +6,9 @@ using namespace std;
 
 class TextUI {
 private:
-  LogicSimulator *LS_ptr;
+  LogicSimulator *LS;
 public:
-  TextUI(LogicSimulator *LS): LS_ptr(LS) {};
+  TextUI(LogicSimulator *_LS): LS(_LS) {};
 
   void displayMenu();
   void processCommand();
