@@ -12,6 +12,13 @@
 
 using namespace std;
 
+string LogicSimulator::getSimulationResult() {
+  for(auto oPin : oPins)
+    if(oPin->isCircuitOutput())
+      cout << oPin->getOutput() << endl;
+}
+
+
 string LogicSimulator::getLayout() {
   int circuitOut = 0;
   for(auto oPin : oPins)
@@ -37,6 +44,9 @@ bool LogicSimulator::load(string filename) {
   oPins.resize(gates);
 
   // can't initial vector of pointers using resize()
+  for(int i = 0; i < iPins.size(); i++)
+    iPins[i] = new iPin();
+
   for(int i = 0; i < oPins.size(); i++)
     oPins[i] = new oPin();
 
@@ -59,12 +69,11 @@ bool LogicSimulator::load(string filename) {
     while(cin >> input_pin && input_pin != 0) {
       if(input_pin < 0) {       // need to review !!!
         int index = abs(int(input_pin)) - 1;
-        iPins[index] = new iPin();  // may out of range
-        oPins[i]->addInputPin(iPins[index]);
+        oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range
       }
       else {    // need to review !!!
         int index = (int(input_pin) % 10000) - 1;
-        oPins[i]->addInputPin(oPins[index]);
+        oPins[i]->getGate()->addInputPin(oPins[index]);  // need to review
         oPins[index]->setCircuitOPinFalse();
       }
     }
