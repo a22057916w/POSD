@@ -1,5 +1,7 @@
 #include "TextUI.h"
 
+#include <cmath>
+
 using namespace std;
 
 void TextUI::displayMenu() {
@@ -18,10 +20,10 @@ void TextUI::processCommand() {
     }
     else if(command == 2) {
       readInputPins();
-      LS_ptr->getSimulationResult();
+      LS->getSimulationResult();
     }
     else if(command == 3) {
-      cout << command << endl;
+      displayTruthTable();
     }
     else if(command == 4) {
       cout << "Goodbye, thanks for using LS." << endl;
@@ -40,23 +42,23 @@ void TextUI::loading() {
   cout << "Please key in a file path: ";
   cin >> filename;
 
-  if(!LS_ptr->load(filename)) {
+  if(!LS->load(filename)) {
     cout << "File not found or file format error!!" << endl;
     return;
   }
 
-  LS_ptr->setloaded();
-  LS_ptr->getLayout();
+  LS->setloaded();
+  LS->getLayout();
 
 }
 
 void TextUI::readInputPins() {
-  if(!LS_ptr->isLoaded()) {
+  if(!LS->isLoaded()) {
     cout << "Please load an lcf file, before using this operation." << endl;
     return;
   }
 
-  int size = LS_ptr->getIPinSize();
+  int size = LS->getIPinSize();
 
   int i = 0;
   while(i < size) {
@@ -70,7 +72,17 @@ void TextUI::readInputPins() {
       continue;
     }
 
-    LS_ptr->setIPinsValue(i, input_value);
+    LS->setIPinsValue(i, input_value);
     i++;
   }
+}
+
+void TextUI::displayTruthTable() {
+  if(!LS->isLoaded()) {
+      cout << "Please load an lcf file, before using this operation." << endl;
+      return;
+  }
+
+  string truthTable = LS->getTruthTable();
+  cout << truthTable << endl;
 }
