@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 #include "Device.h"
 #include "gateAND.h"
@@ -12,7 +13,7 @@
 
 using namespace std;
 
-string LogicSimulator::getSimulationResult() {
+string LogicSimulator::getSimulationResult() {    // need to print table !!!
   for(auto oPin : oPins)
     if(oPin->isCircuitOutput())
       cout << oPin->getOutput() << endl;
@@ -28,6 +29,45 @@ string LogicSimulator::getLayout() {
   cout << "Circuit: " << iPins.size() << " input pins, "
     << circuitOut << " output pins and "
     << oPins.size() << " gates\n";
+}
+
+string LogicSimulator::getTruthTable() {
+  cout << "getTruthTable" << endl;
+  // calculate the combinations of all input by binary
+  int base = 2;
+  int exponent = iPins.size();
+  int num_combinations = pow(base, exponent);
+
+  int binary_num = 0b0;
+
+  vector<int> iPin_value(iPins.size(), 0);
+  vector<int> oPin_value(oPins.size(), 0);
+
+  int iPinSize = iPins.size();
+  cout << "iPins Size: " << iPins.size() << endl;
+
+  while(num_combinations--) {
+    cout << "binary number: " << binary_num << endl;
+    int binary_temp = binary_num;
+
+
+    for(int i = 0; i < iPins.size(); i++) {
+      int least_bit = binary_temp & 0b1;
+      cout << "i: " << i << " binary_temp: " << binary_temp << " least_bit: " << least_bit << endl;
+      iPins[i]->setVal(least_bit);
+      binary_temp >>= 1;
+    }
+
+    cout << "print iPins:" << endl;
+    for(int i = 0; i < iPins.size(); i++) {
+      cout << "i: " << i << " iPins: ";
+      cout << iPins[i]->getOutput() << endl;
+    }
+    cout << endl;
+
+    binary_num++;   // increase the nuumber to 2^x-1
+  }
+  cout << "~getTruthTable" << endl;
 }
 
 bool LogicSimulator::load(string filename) {
