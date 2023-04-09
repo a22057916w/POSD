@@ -3,13 +3,12 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <fstream>
 
-#include "Device.h"
+
 #include "gateAND.h"
 #include "gateNOT.h"
 #include "gateOR.h"
-#include "iPin.h"
-#include "oPin.h"
 
 using namespace std;
 
@@ -157,10 +156,11 @@ string LogicSimulator::getLayout() {
   for(auto oPin : oPins)
     if(oPin->isCircuitOutput())
       circuitOut++;
+  string layout = "";
+  layout += "Circuit: " + to_string(iPins.size()) + " input pins, " + to_string(circuitOut)
+    + " output pins and " + to_string(oPins.size()) + " gates\n";
 
-  cout << "Circuit: " << iPins.size() << " input pins, "
-    << circuitOut << " output pins and "
-    << oPins.size() << " gates\n";
+  return layout;
 }
 
 string LogicSimulator::getTruthTable() {
@@ -185,30 +185,32 @@ void LogicSimulator::setTruthTable() {
 }
 
 bool LogicSimulator::load(string filename) {
-  ifstream file(filename);
-  if(!file.good()) {
-   return false;
-  }
+  ifstream fin(filename, std::ios::in);
+
+  // if file is not open corretly, return false
+  if(!fin.is_open())
+    return false;
 
   int iPin_size, gates;
-  cin >> iPin_size;
-  cin >> gates;
+  fin >> iPin_size;
+  fin >> gates;
 
+  // resize vector size by inputs
   iPins.resize(iPin_size);
   oPins.resize(gates);
 
   // can't initial vector of pointers using resize()
   for(int i = 0; i < iPins.size(); i++)
     iPins[i] = new iPin();
-
   for(int i = 0; i < oPins.size(); i++)
     oPins[i] = new oPin();
 
+  // read gates and it's connections
   for(int i = 0; i < oPins.size(); i++) {
-    cout << oPins.size() << endl;
     int gate_type;
-    cin >> gate_type;
+    fin >> gate_type;
 
+    // read gate type
     if(gate_type == 1)
       oPins[i]->addGate(new gateAND());
     else if(gate_type == 2)
@@ -218,9 +220,9 @@ bool LogicSimulator::load(string filename) {
     else
       return false;
 
-
+    // read connections
     double input_pin;
-    while(cin >> input_pin && input_pin != 0) {
+    while(fin >> input_pin && input_pin != 0) {
       if(input_pin < 0) {       // need to review !!!
         int index = abs(int(input_pin)) - 1;
         oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range
@@ -233,12 +235,15 @@ bool LogicSimulator::load(string filename) {
     }
   }
 
-  for(int i = 0; i < iPins.size(); i++)
-    cout << i << ": " << iPins[i]->getType() << endl;
-
-  for(int i = 0; i < oPins.size(); i++)
-    cout << i << ": " << oPins[i]->getType() << endl;
-
+  // close file and return control stream to console
+  fin.close();
+  //
+  // for(int i = 0; i < iPins.size(); i++)
+  //   cout << i << ": " << iPins[i]->getType() << endl;
+  //
+  // for(int i = 0; i < oPins.size(); i++)
+  //   cout << i << ": " << oPins[i]->getType() << endl;
+  // cout << "loaded" << endl;
   return true;
 }
 
