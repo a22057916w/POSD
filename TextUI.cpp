@@ -1,5 +1,6 @@
 #include "TextUI.h"
 
+#include <iostream>
 #include <cmath>
 
 using namespace std;
@@ -49,8 +50,7 @@ void TextUI::loading() {
   }
 
   LS->setloaded();
-  LS->getLayout();
-
+  cout << LS->getLayout() << endl;
 }
 
 void TextUI::readInputPins() {
