@@ -28,4 +28,8 @@ public:
   bool isCircuitOutput() {
     return circuitOPin;
   }
+
+  Device* getGate() {
+    return gate;
+  }
 };
