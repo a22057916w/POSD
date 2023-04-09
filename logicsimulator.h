@@ -23,7 +23,7 @@ private:
 
   bool is_loaded = false;
 public:
-  string getSimulationResult();
+  vector<int> getSimulationResult();
   string getTruthTable();
   string getLayout();
 
