@@ -13,6 +13,8 @@
 #include <iostream>
 #include <cstdlib>
 
+typedef vector<vector<int>> vvi;
+
 using namespace std;
 
 class LogicSimulator {
@@ -22,6 +24,9 @@ private:
   vector<oPin *> oPins;
 
   bool is_loaded = false;
+
+  void setTruthTableValue(vvi &input, vvi &output);
+
 public:
   vector<int> getSimulationResult();
   string getTruthTable();
