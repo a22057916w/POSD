@@ -13,17 +13,25 @@
 
 using namespace std;
 
-string LogicSimulator::getSimulationResult() {    // need to print table !!!
-  string result = "";
-
+vector<int> LogicSimulator::getSimulationResult() {
+  vector<int> result;
   for(auto oPin : oPins)
-    if(oPin->isCircuitOutput()) {
-      cout << oPin->getOutput() << endl;
-      result += to_string(oPin->getOutput()) + " ";
-    }
-
+    if(oPin->isCircuitOutput())
+      result.push_back(oPin->getOutput());
   return result;
 }
+
+// string LogicSimulator::getSimulationResult() {    // need to print table !!!
+//   string result = "";
+//
+//   for(auto oPin : oPins)
+//     if(oPin->isCircuitOutput()) {
+//       cout << oPin->getOutput() << endl;
+//       result += " " + to_string(oPin->getOutput());
+//     }
+//
+//   return result;
+// }
 
 
 string LogicSimulator::getLayout() {
@@ -38,31 +46,26 @@ string LogicSimulator::getLayout() {
 }
 
 string LogicSimulator::getTruthTable() {
-  cout << "getTruthTable" << endl;
   // calculate the combinations of all input by binary
   int base = 2;
   int exponent = iPins.size();
   int num_combinations = pow(base, exponent);
 
-  int binary_num = 0b0;
+  int num = 0b0;
 
-  vector<vector<int>> iPin_value;
-  vector<vector<int>> oPin_value;
+  vector<vector<int>> iPin_table(num_combinations);
+  vector<vector<int>> oPin_table(num_combinations);
 
-  int iPinSize = iPins.size();
-  cout << "iPins Size: " << iPins.size() << endl;
-
-  while(num_combinations--) {
-    cout << "binary number: " << binary_num << endl;
-    int binary_temp = binary_num;
+  while(num < num_combinations) {
+    cout << "binary number: " << num << endl;
+    int temp = num;
 
 
     for(int i = iPins.size() - 1; i >= 0; i--) {
-      int least_bit = binary_temp & 0b1;
-      cout << "i: " << i << " binary_temp: " << binary_temp << " least_bit: " << least_bit << endl;
+      int least_bit = temp & 0b1;
+      cout << "i: " << i << " temp: " << temp << " least_bit: " << least_bit << endl;
       iPins[i]->setVal(least_bit);
-      iPin_value.push_back()
-      binary_temp >>= 1;
+      temp >>= 1;
     }
 
     cout << "print iPins:" << endl;
@@ -72,13 +75,59 @@ string LogicSimulator::getTruthTable() {
     }
     cout << endl;
 
-    string output = getSimulationResult();
-    cout << "oPin: " + output << endl;
+    vector<int> output = getSimulationResult();
+    oPin_table[num] = output;
 
-    binary_num++;   // increase the nuumber to 2^x-1
+    for(int i = 0; i < iPins.size(); i++)
+      iPin_table[num].push_back(iPins[i]->getOutput());
+
+    num++;   // increase the nuumber to 2^x-1
   }
 
-  cout << "~getTruthTable" << endl;
+
+  string table = "";
+
+  int iCol = iPin_table[0].size();
+  int oCol = oPin_table[0].size();
+
+  // print i i i i .... | o o o....
+  for(int i = 0; i < iCol; i++)
+    table += "i ";
+  table += "|";
+  for(int i = 0; i < oCol; i++)
+    table += " o";
+  table += "\n";
+
+  // print 1 2 3 4... | 1 2 3 ...
+  for(int i = 0; i < iCol; i++)
+    table += to_string(i+1) + " ";
+  table += "|";
+  for(int i = 0; i < oCol; i++)
+    table += " " + to_string(i+1);
+  table += "\n";
+
+  // print ------+---
+  for(int i = 0; i < iCol; i++)
+    table += "--";
+  table += "+";
+  for(int i = 0; i < oCol; i++)
+    table += "--";
+  table += "\n";
+
+  int row = 0;
+  // print truth value
+  while(row < num_combinations) {
+    for(int col = 0; col < iCol; col++)
+      table += to_string(iPin_table[row][col]) + " ";
+    table += "|";
+    for(int col = 0; col < oCol; col++)
+      table += " " + to_string(oPin_table[row][col]);
+    table += "\n";
+
+    row++;
+  }
+
+  return table;
 }
 
 bool LogicSimulator::load(string filename) {
