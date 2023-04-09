@@ -82,7 +82,8 @@ void TextUI::displayTruthTable() {
       cout << "Please load an lcf file, before using this operation." << endl;
       return;
   }
-
+  
+  LS->setTruthTable();
   string truthTable = LS->getTruthTable();
   cout << truthTable << endl;
 }
