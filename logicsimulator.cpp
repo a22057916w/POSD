@@ -13,17 +13,11 @@
 
 using namespace std;
 
-void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table) {
+void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int num_comb) {
   int input_size = getIPinSize();
+  int num_bit = 0b0;               // 0 to 2^n - 1, n = exponent
 
-  // calculate the combinations of all input by binary
-  int base = 2;
-  int exponent = input_size;
-  int num_combinations = pow(base, exponent);
-
-  int num_bit = 0b0;  // 0 to 2^n - 1, n = exponent
-
-  while(num_bit < num_combinations) {
+  while(num_bit < num_comb) {
     int temp_bit = num_bit;
 
     for(int i = input_size - 1; i >= 0; i--) {
@@ -32,7 +26,7 @@ void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table) {
       temp_bit >>= 1;
     }
 
-    int row = num_bit;  //  total rows = num_combinations - 1, started with 0
+    int row = num_bit;  //  total rows = num_comb - 1, started with 0
 
     vector<int> outputs = getSimulationResult();
     output_table.push_back(outputs);
@@ -46,6 +40,52 @@ void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table) {
   }
 }
 
+void LogicSimulator::drawTruthTable(vvi &input_table, vvi &output_table, int num_comb) {
+  string table = "";
+
+  // input/output table has same column numbers in every row;
+  int input_col = input_table[0].size();
+  int output_col = output_table[0].size();
+
+  // print i i i i .... | o o o....
+  for(int i = 0; i < input_col; i++)
+    table += "i ";
+  table += "|";
+  for(int i = 0; i < output_col; i++)
+    table += " o";
+  table += "\n";
+
+  // print 1 2 3 4... | 1 2 3 ...
+  for(int i = 0; i < input_col; i++)
+    table += to_string(i+1) + " ";
+  table += "|";
+  for(int i = 0; i < output_col; i++)
+    table += " " + to_string(i+1);
+  table += "\n";
+
+  // print ------+---
+  for(int i = 0; i < input_col; i++)
+    table += "--";
+  table += "+";
+  for(int i = 0; i < output_col; i++)
+    table += "--";
+  table += "\n";
+
+  // draw the rest of truth value
+  int row = 0;
+  while(row < num_comb) {
+    for(int col = 0; col < input_col; col++)
+      table += to_string(input_table[row][col]) + " ";
+    table += "|";
+    for(int col = 0; col < output_col; col++)
+      table += " " + to_string(output_table[row][col]);
+    table += "\n";
+
+    row++;
+  }
+
+  this->truthTable = table;
+}
 
 // public method:
 
@@ -58,14 +98,6 @@ vector<int> LogicSimulator::getSimulationResult() {
 }
 
 // string LogicSimulator::getSimulationResult() {    // need to print table !!!
-//   string result = "";
-//
-//   for(auto oPin : oPins)
-//     if(oPin->isCircuitOutput()) {
-//       cout << oPin->getOutput() << endl;
-//       result += " " + to_string(oPin->getOutput());
-//     }
-//
 //   return result;
 // }
 
@@ -82,61 +114,24 @@ string LogicSimulator::getLayout() {
 }
 
 string LogicSimulator::getTruthTable() {
+  return truthTable;
+}
+
+void LogicSimulator::setTruthTable() {
 
   // calculate the combinations of all input by binary
   int base = 2;
   int exponent = getIPinSize();
-  int num_combinations = pow(base, exponent);
+  int num_comb = pow(base, exponent);
 
   // store all input combiations and output's
   vvi input_table;
   vvi output_table;
 
-  this->setTruthTableValue(input_table, output_table);
-
-  string table = "";
-
-  int iCol = input_table[0].size();
-  int oCol = output_table[0].size();
-
-  // print i i i i .... | o o o....
-  for(int i = 0; i < iCol; i++)
-    table += "i ";
-  table += "|";
-  for(int i = 0; i < oCol; i++)
-    table += " o";
-  table += "\n";
-
-  // print 1 2 3 4... | 1 2 3 ...
-  for(int i = 0; i < iCol; i++)
-    table += to_string(i+1) + " ";
-  table += "|";
-  for(int i = 0; i < oCol; i++)
-    table += " " + to_string(i+1);
-  table += "\n";
-
-  // print ------+---
-  for(int i = 0; i < iCol; i++)
-    table += "--";
-  table += "+";
-  for(int i = 0; i < oCol; i++)
-    table += "--";
-  table += "\n";
-
-  int row = 0;
-  // print truth value
-  while(row < num_combinations) {
-    for(int col = 0; col < iCol; col++)
-      table += to_string(input_table[row][col]) + " ";
-    table += "|";
-    for(int col = 0; col < oCol; col++)
-      table += " " + to_string(output_table[row][col]);
-    table += "\n";
-
-    row++;
-  }
-
-  return table;
+  // set value to input/output table
+  this->setTruthTableValue(input_table, output_table, num_comb);
+  // set truthTable by input/output table
+  this->drawTruthTable(input_table, output_table, num_comb);
 }
 
 bool LogicSimulator::load(string filename) {

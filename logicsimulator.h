@@ -23,13 +23,16 @@ private:
   vector<iPin *> iPins;
   vector<oPin *> oPins;
 
+  string truthTable = "";
   bool is_loaded = false;
 
-  void setTruthTableValue(vvi &input, vvi &output);
+  void setTruthTableValue(vvi &input, vvi &output, int combiations);
+  void drawTruthTable(vvi &input, vvi& output, int combiations);
 
 public:
   vector<int> getSimulationResult();
   string getTruthTable();
+  void setTruthTable();
   string getLayout();
 
   bool load(string filename);
