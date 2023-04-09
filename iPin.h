@@ -14,7 +14,6 @@ public:
   }
 
   int getOutput() const override {
-    cout << val << endl;
     return val;
   }
 
