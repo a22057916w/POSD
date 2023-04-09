@@ -1,6 +1,7 @@
 #pragma once
 #include "Device.h"
 #include <string>
+#include <iostream>
 
 class iPin : public Device {
 private:
@@ -13,6 +14,7 @@ public:
   }
 
   int getOutput() const override {
+    cout << val << endl;
     return val;
   }
 

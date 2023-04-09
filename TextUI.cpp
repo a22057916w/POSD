@@ -18,6 +18,7 @@ void TextUI::processCommand() {
     }
     else if(command == 2) {
       readInputPins();
+      LS_ptr->getSimulationResult();
     }
     else if(command == 3) {
       cout << command << endl;
