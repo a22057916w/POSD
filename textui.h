@@ -1,7 +1,7 @@
 #pragma once
+
 #include "Logicsimulator.h"
-#include <iostream>
-#include <string>
+
 using namespace std;
 
 class TextUI {
