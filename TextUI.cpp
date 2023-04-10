@@ -1,7 +1,7 @@
 #include "TextUI.h"
 
 #include <iostream>
-#include <cmath>
+#include <cstdio>
 
 using namespace std;
 
@@ -14,20 +14,19 @@ void TextUI::displayMenu() {
 }
 
 void TextUI::processCommand() {
-  int command = -1;
-  while(cin >> command && command != 4) {
-    if(command == 1) {
+  string command = "";
+  while(cin >> command && command != "4") {
+    if(command == "1") {
       loadCircuit();
     }
-    else if(command == 2) {
-      readInputPins();
-      LS->setSimulationResult();
-      cout << LS->getSimulationResult() << endl;
+    else if(command == "2") {
+      if(readInputPins())
+        displaySimulationResult();
     }
-    else if(command == 3) {
+    else if(command == "3") {
       displayTruthTable();
     }
-    else if(command == 4) {
+    else if(command == "4") {
       cout << "Goodbye, thanks for using LS." << endl;
       break;
     }
@@ -38,6 +37,8 @@ void TextUI::processCommand() {
   }
 }
 
+// ************************ private members ********************
+// command 1
 void TextUI::loadCircuit() {
   string filename;  // path of lcf file
 
@@ -49,19 +50,21 @@ void TextUI::loadCircuit() {
     return;
   }
 
-  LS->setloaded();
+  LS->setloaded();  // set the is_loaded flag to true
   cout << LS->getLayout() << endl;
 }
 
-void TextUI::readInputPins() {
+// command 2
+bool TextUI::readInputPins() {
   if(!LS->isLoaded()) {
     cout << "Please load an lcf file, before using this operation." << endl;
-    return;
+    return false;
   }
 
+  // get the number of inputs
   int size = LS->getIPinSize();
-
   int i = 0;
+
   while(i < size) {
     int input_value;
 
@@ -76,15 +79,23 @@ void TextUI::readInputPins() {
     LS->setIPinsValue(i, input_value);
     i++;
   }
+
+  return true;
 }
 
+// command 2
+void TextUI::displaySimulationResult() {
+  LS->setSimulationResult();
+  printf("%s\n", LS->getSimulationResult().c_str());
+}
+
+// command 3
 void TextUI::displayTruthTable() {
   if(!LS->isLoaded()) {
       cout << "Please load an lcf file, before using this operation." << endl;
       return;
   }
 
-  LS->setTruthTable();
-  string truthTable = LS->getTruthTable();
-  cout << truthTable << endl;
+  LS->setTruthTable();  // givintruth values, running simulation, stored table as string
+  printf("%s\n", LS->getTruthTable().c_str());
 }

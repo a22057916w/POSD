@@ -8,10 +8,14 @@ class TextUI {
 private:
   LogicSimulator *LS;
 
-  // for processCommand()
-  void loadCircut();
-  void readInputPins();
+  // command: 1
+  void loadCircuit();
+
+  // command: 2
+  bool readInputPins();
   void displaySimulationResult();
+
+  // command: 3
   void displayTruthTable();
   void Exit();
 
