@@ -17,7 +17,7 @@ void TextUI::processCommand() {
   int command = -1;
   while(cin >> command && command != 4) {
     if(command == 1) {
-      loading();
+      loadCircuit();
     }
     else if(command == 2) {
       readInputPins();
@@ -38,7 +38,7 @@ void TextUI::processCommand() {
   }
 }
 
-void TextUI::loading() {
+void TextUI::loadCircuit() {
   string filename;  // path of lcf file
 
   cout << "Please key in a file path: ";
