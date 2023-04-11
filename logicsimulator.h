@@ -22,9 +22,11 @@ private:
   string truthTable;
   bool is_loaded = false;
 
+  // called by setTruthTable
   void setTruthTableValue(vvi &input, vvi &output, int combiations);
   void drawTruthTable(vvi &input, vvi& output, int combiations);
 
+  // called by setSimulationResult
   void runSimulation();
   void drawSimulationTable();
 
