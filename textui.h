@@ -9,7 +9,8 @@ private:
   LogicSimulator *LS;
 
   // command: 1
-  void loadCircuit();
+  bool loadCircuit();
+  void displayCircuit();
 
   // command: 2
   bool readInputPins();

@@ -17,7 +17,8 @@ void TextUI::processCommand() {
   string command = "";
   while(cin >> command && command != "4") {
     if(command == "1") {
-      loadCircuit();
+      if(loadCircuit())
+        displayCircuit();
     }
     else if(command == "2") {
       if(readInputPins())
@@ -39,7 +40,7 @@ void TextUI::processCommand() {
 
 // ************************ private members ********************
 // command 1
-void TextUI::loadCircuit() {
+bool TextUI::loadCircuit() {
   string filename;  // path of lcf file
 
   cout << "Please key in a file path: ";
@@ -47,11 +48,14 @@ void TextUI::loadCircuit() {
 
   if(!LS->load(filename)) {
     cout << "File not found or file format error!!" << endl;
-    return;
+    return false;
   }
 
-  LS->setloaded();  // set the is_loaded flag to true
-  cout << LS->getLayout() << endl;
+  return true;
+}
+
+void TextUI::displayCircuit() {
+  printf("%s\n", LS->getCircuitLayout().c_str());
 }
 
 // command 2
