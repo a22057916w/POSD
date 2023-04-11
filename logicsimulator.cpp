@@ -189,11 +189,14 @@ bool LogicSimulator::load(string filename) {
   if(!fin.is_open())
     return false;
 
-  string iPin_size, gates;
-  fin >> iPin_size;
-  fin >> gates;
-
   try {
+    // reset the id_loaded flag
+    setLoaded(false);
+
+    string iPin_size, gates;
+    fin >> iPin_size;
+    fin >> gates;
+
     // claer the previous circuit
     iPins.clear();
     oPins.clear();
@@ -242,7 +245,7 @@ bool LogicSimulator::load(string filename) {
       }
     }  // for-loop
 
-    setLoaded();
+    setLoaded(true);
     setCircuitLayout();
   }
   catch (const invalid_argument& ex) {
@@ -256,8 +259,8 @@ bool LogicSimulator::load(string filename) {
   return succeed;
 }
 
-void LogicSimulator::setLoaded() {
-  is_loaded = true;
+void LogicSimulator::setLoaded(bool loaded) {
+  this->is_loaded = loaded;
 }
 
 void LogicSimulator::setIPinsValue(int index, int value) {

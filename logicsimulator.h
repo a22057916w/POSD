@@ -25,7 +25,7 @@ private:
 
   // called by load
   void setCircuitLayout();
-  void setLoaded();
+  void setLoaded(bool loaded);
 
   // called by setTruthTable
   void setTruthTableValue(vvi &input, vvi &output, int combiations);
