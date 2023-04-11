@@ -12,7 +12,7 @@ private:
 public:
   oPin() {};
 
-  void addGate(Device *gate);
+  void setGate(Device *gate);
   void setCircuitOPinFalse();
   bool isCircuitOutput();
   Device* getGate();
