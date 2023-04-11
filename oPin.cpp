@@ -4,7 +4,7 @@
 
 using std::string;
 
-void oPin::addGate(Device *gate) {
+void oPin::setGate(Device *gate) {
   this->gate = gate;
 }
 

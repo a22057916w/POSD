@@ -212,11 +212,11 @@ bool LogicSimulator::load(string filename) {
 
     // read gate type
     if(gate_type == 1)
-      oPins[i]->addGate(new gateAND());
+      oPins[i]->setGate(new gateAND());
     else if(gate_type == 2)
-      oPins[i]->addGate(new gateOR());
+      oPins[i]->setGate(new gateOR());
     else if(gate_type == 3)
-      oPins[i]->addGate(new gateNOT());
+      oPins[i]->setGate(new gateNOT());
     else
       return false;
 
@@ -234,16 +234,8 @@ bool LogicSimulator::load(string filename) {
       }
     }
   }
-
-  // close file and return control stream to console
   fin.close();
-  //
-  // for(int i = 0; i < iPins.size(); i++)
-  //   cout << i << ": " << iPins[i]->getType() << endl;
-  //
-  // for(int i = 0; i < oPins.size(); i++)
-  //   cout << i << ": " << oPins[i]->getType() << endl;
-  // cout << "loaded" << endl;
+
   return true;
 }
 
