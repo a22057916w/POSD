@@ -27,7 +27,7 @@ private:
   void setCircuitLayout();
   void setLoaded(bool loaded);
 
-  // called by setTruthTable
+  // called by calTruthTable
   void setTruthTableValue(vvi &input, vvi &output, int combiations);
   void drawTruthTable(vvi &input, vvi& output, int combiations);
 
@@ -46,7 +46,7 @@ public:
   inline string getSimulationResult() { return simulationResult; };
 
   // truth table
-  void setTruthTable();
+  void calTruthTable();
   inline string getTruthTable() { return truthTable; };
 
   // size

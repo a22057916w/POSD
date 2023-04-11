@@ -164,7 +164,7 @@ void LogicSimulator::setSimulationResult() {
   drawSimulationTable();
 }
 
-void LogicSimulator::setTruthTable() {
+void LogicSimulator::calTruthTable() {
   // calculate the combinations of all input by binary
   int base = 2;
   int exponent = getIPinSize();

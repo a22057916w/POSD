@@ -100,6 +100,6 @@ void TextUI::displayTruthTable() {
       return;
   }
 
-  LS->setTruthTable();  // givintruth values, running simulation, stored table as string
+  LS->calTruthTable();  // calaulate the truth table
   printf("%s\n", LS->getTruthTable().c_str());
 }
