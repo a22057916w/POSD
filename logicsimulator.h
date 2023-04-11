@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Device.h"
 #include "iPin.h"
 #include "oPin.h"
 
@@ -13,14 +12,20 @@ using namespace std;
 
 class LogicSimulator {
 private:
-  vector<Device *> circuit;
   vector<iPin *> iPins;
   vector<oPin *> oPins;
 
+  bool is_loaded = false;
+  string circutLayout;
+
   vector<int> simulationValues;
   string simulationResult;
+
   string truthTable;
-  bool is_loaded = false;
+
+  // called by load
+  void setCircuitLayout();
+  void setLoaded();
 
   // called by setTruthTable
   void setTruthTableValue(vvi &input, vvi &output, int combiations);
@@ -31,20 +36,18 @@ private:
   void drawSimulationTable();
 
 public:
+  // load
+  bool load(string filename);
+  inline bool isLoaded() { return is_loaded; };
+  inline string getCircuitLayout() { return circutLayout; };
+
   // simulation
   void setSimulationResult();
-  string getSimulationResult() { return simulationResult; };
+  inline string getSimulationResult() { return simulationResult; };
 
   // truth table
   void setTruthTable();
   inline string getTruthTable() { return truthTable; };
-
-  string getLayout();
-
-  // load
-  bool load(string filename);
-  void setloaded();
-  inline bool isLoaded() { return is_loaded; };
 
   // size
   inline int getIPinSize() { return iPins.size(); };

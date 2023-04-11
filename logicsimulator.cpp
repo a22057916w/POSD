@@ -14,6 +14,20 @@
 
 using namespace std;
 
+void LogicSimulator::setCircuitLayout() {
+  // count the circuit output
+  int circuitOut = 0;
+  for(auto oPin : oPins)
+    if(oPin->isCircuitOutput())
+      circuitOut++;
+
+  string layout = "";
+  layout += "Circuit: " + to_string(iPins.size()) + " input pins, " + to_string(circuitOut)
+    + " output pins and " + to_string(oPins.size()) + " gates\n";
+
+  this->circutLayout = layout;
+}
+
 
 void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int num_comb) {
   int input_size = getIPinSize();
@@ -150,21 +164,7 @@ void LogicSimulator::setSimulationResult() {
   drawSimulationTable();
 }
 
-string LogicSimulator::getLayout() {
-  int circuitOut = 0;
-  for(auto oPin : oPins)
-    if(oPin->isCircuitOutput())
-      circuitOut++;
-  string layout = "";
-  layout += "Circuit: " + to_string(iPins.size()) + " input pins, " + to_string(circuitOut)
-    + " output pins and " + to_string(oPins.size()) + " gates\n";
-
-  return layout;
-}
-
-
 void LogicSimulator::setTruthTable() {
-
   // calculate the combinations of all input by binary
   int base = 2;
   int exponent = getIPinSize();
@@ -194,6 +194,10 @@ bool LogicSimulator::load(string filename) {
   fin >> gates;
 
   try {
+    // claer the previous circuit
+    iPins.clear();
+    oPins.clear();
+
     // resize vector size by inputs
     iPins.resize(Util::stoi(iPin_size));
     oPins.resize(Util::stoi(gates));
@@ -237,6 +241,9 @@ bool LogicSimulator::load(string filename) {
         }
       }
     }  // for-loop
+
+    setLoaded();
+    setCircuitLayout();
   }
   catch (const invalid_argument& ex) {
     succeed = false;
@@ -249,7 +256,7 @@ bool LogicSimulator::load(string filename) {
   return succeed;
 }
 
-void LogicSimulator::setloaded() {
+void LogicSimulator::setLoaded() {
   is_loaded = true;
 }
 
