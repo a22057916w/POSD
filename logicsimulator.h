@@ -32,25 +32,25 @@ private:
 
 public:
   // simulation
-  string getSimulationResult();
   void setSimulationResult();
+  string getSimulationResult() { return simulationResult; };
 
   // truth table
-  string getTruthTable();
   void setTruthTable();
+  inline string getTruthTable() { return truthTable; };
 
   string getLayout();
 
   // load
   bool load(string filename);
   void setloaded();
-  bool isLoaded();
+  inline bool isLoaded() { return is_loaded; };
 
   // size
-  int getIPinSize();
-  int getOPinSize();
+  inline int getIPinSize() { return iPins.size(); };
+  inline int getOPinSize() { return oPins.size(); };
 
   // values
   void setIPinsValue(int index, int value);
-  int getIPinsValue(int index);
+  inline int getIPinsValue(int index) { return iPins[index]->getOutput(); };
 };

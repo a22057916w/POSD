@@ -19,7 +19,7 @@ void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int
   int input_size = getIPinSize();
   int num_bit = 0b0;               // 0 to 2^n - 1, n = exponent
 
-  // using bitmap to iPins stated with 0000...0000(max: 16 bits)
+  // using bitmap to iPins, stated with 0000...0000(max: 16 bits)
   while(num_bit < num_comb) {
     int temp_bit = num_bit;
 
@@ -150,10 +150,6 @@ void LogicSimulator::setSimulationResult() {
   drawSimulationTable();
 }
 
-string LogicSimulator::getSimulationResult() {    // need to print table !!!
-  return simulationResult;
-}
-
 string LogicSimulator::getLayout() {
   int circuitOut = 0;
   for(auto oPin : oPins)
@@ -166,9 +162,6 @@ string LogicSimulator::getLayout() {
   return layout;
 }
 
-string LogicSimulator::getTruthTable() {
-  return truthTable;
-}
 
 void LogicSimulator::setTruthTable() {
 
@@ -231,9 +224,7 @@ bool LogicSimulator::load(string filename) {
       // read connections
       string input_pin;
       while(fin >> input_pin && input_pin != "0") {
-        // convert string to float
         float input_val = Util::stof(input_pin);
-        cout << input_val << endl;
 
         if(input_val < 0) {       // need to review !!!
           int index = abs(int(input_val)) - 1;
@@ -262,22 +253,6 @@ void LogicSimulator::setloaded() {
   is_loaded = true;
 }
 
-bool LogicSimulator::isLoaded() {
-  return is_loaded;
-}
-
-int LogicSimulator::getIPinSize() {
-  return iPins.size();
-}
-
-int LogicSimulator::getOPinSize() {
-  return oPins.size();
-}
-
 void LogicSimulator::setIPinsValue(int index, int value) {
   iPins[index]->setVal(value);
-}
-
-int LogicSimulator::getIPinsValue(int index) {
-  return iPins[index]->getOutput();
 }
