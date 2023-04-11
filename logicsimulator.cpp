@@ -12,10 +12,12 @@
 
 using namespace std;
 
+
 void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int num_comb) {
   int input_size = getIPinSize();
   int num_bit = 0b0;               // 0 to 2^n - 1, n = exponent
 
+  // using bitmap to iPins stated with 0000...0000(max: 16 bits)
   while(num_bit < num_comb) {
     int temp_bit = num_bit;
 
@@ -27,7 +29,7 @@ void LogicSimulator::setTruthTableValue(vvi &input_table, vvi &output_table, int
 
     int row = num_bit;  //  total rows = num_comb - 1, started with 0
 
-    runSimulation();
+    runSimulation();   // run the simulation to set simulationValues
 
     vector<int> outputs = this->simulationValues;
     output_table.push_back(outputs);
@@ -131,7 +133,7 @@ void LogicSimulator::drawSimulationTable() {
   this->simulationResult = table;
 }
 
-// public method:
+// *********************** public method ****************************
 
 void LogicSimulator::runSimulation() {
   vector<int> values;
@@ -149,7 +151,6 @@ void LogicSimulator::setSimulationResult() {
 string LogicSimulator::getSimulationResult() {    // need to print table !!!
   return simulationResult;
 }
-
 
 string LogicSimulator::getLayout() {
   int circuitOut = 0;
@@ -218,7 +219,7 @@ bool LogicSimulator::load(string filename) {
     else if(gate_type == 3)
       oPins[i]->setGate(new gateNOT());
     else
-      return false;
+      return false; // if gate type is wrong, return false
 
     // read connections
     double input_pin;
