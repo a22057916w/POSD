@@ -12,6 +12,6 @@ public:
   void addInputPin(Device *inputPin);
 
   // override by gateXXX, iPin, oPin
-  virtual int getOutput() const = 0;
-  virtual string getType() const = 0;
+  virtual int getOutput() = 0;
+  virtual string getType() = 0;
 };

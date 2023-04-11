@@ -1,6 +1,9 @@
 #pragma once
 #include "Device.h"
+
 #include <string>
+
+using std::string;
 
 class oPin : public Device {
 private:
@@ -9,27 +12,13 @@ private:
 public:
   oPin() {};
 
-  void addGate(Device *gate) {
-    this->gate = gate;
-  }
+  void addGate(Device *gate);
+  void setCircuitOPinFalse();
+  bool isCircuitOutput();
+  Device* getGate();
 
-  int getOutput() const override {
-    return gate->getOutput();  // the iPins only connect to one gate
-  }
+  int getOutput() override;
+  string getType() override;
 
-  string getType() const override {
-    return gate->getType();
-  }
 
-  void setCircuitOPinFalse() {
-    circuitOPin = false;
-  }
-
-  bool isCircuitOutput() {
-    return circuitOPin;
-  }
-
-  Device* getGate() {
-    return gate;
-  }
 };

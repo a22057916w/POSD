@@ -1,23 +1,18 @@
 #pragma once
+
 #include "Device.h"
 #include <string>
-#include <iostream>
+
+using std::string;
 
 class iPin : public Device {
 private:
-  int val;
+  int value;
 public:
   iPin() {};
 
-  void setVal(int value) {
-    val = value;
-  }
+  void setVal(int value);
 
-  int getOutput() const override {
-    return val;
-  }
-
-  string getType() const override {
-    return "iPin";
-  }
+  int getOutput() override;
+  string getType() override;
 };
