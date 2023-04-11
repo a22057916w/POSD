@@ -3,12 +3,14 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <climits>
 #include <fstream>
 
 
 #include "gateAND.h"
 #include "gateNOT.h"
 #include "gateOR.h"
+#include "Util.h"
 
 using namespace std;
 
@@ -186,58 +188,74 @@ void LogicSimulator::setTruthTable() {
 }
 
 bool LogicSimulator::load(string filename) {
+  bool succeed = true;
+
   ifstream fin(filename, std::ios::in);
 
   // if file is not open corretly, return false
   if(!fin.is_open())
     return false;
 
-  int iPin_size, gates;
+  string iPin_size, gates;
   fin >> iPin_size;
   fin >> gates;
 
-  // resize vector size by inputs
-  iPins.resize(iPin_size);
-  oPins.resize(gates);
+  try {
+    // resize vector size by inputs
+    iPins.resize(Util::stoi(iPin_size));
+    oPins.resize(Util::stoi(gates));
 
-  // can't initial vector of pointers using resize()
-  for(int i = 0; i < iPins.size(); i++)
-    iPins[i] = new iPin();
-  for(int i = 0; i < oPins.size(); i++)
-    oPins[i] = new oPin();
+    // can't initial vector of pointers using resize()
+    for(int i = 0; i < iPins.size(); i++)
+      iPins[i] = new iPin();
+    for(int i = 0; i < oPins.size(); i++)
+      oPins[i] = new oPin();
 
-  // read gates and it's connections
-  for(int i = 0; i < oPins.size(); i++) {
-    int gate_type;
-    fin >> gate_type;
+    // read gates and it's connections
+    for(int i = 0; i < oPins.size(); i++) {
+      string gate_type;
+      fin >> gate_type;
 
-    // read gate type
-    if(gate_type == 1)
-      oPins[i]->setGate(new gateAND());
-    else if(gate_type == 2)
-      oPins[i]->setGate(new gateOR());
-    else if(gate_type == 3)
-      oPins[i]->setGate(new gateNOT());
-    else
-      return false; // if gate type is wrong, return false
-
-    // read connections
-    double input_pin;
-    while(fin >> input_pin && input_pin != 0) {
-      if(input_pin < 0) {       // need to review !!!
-        int index = abs(int(input_pin)) - 1;
-        oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range
+      // read gate type
+      if(gate_type == "1")
+        oPins[i]->setGate(new gateAND());
+      else if(gate_type == "2")
+        oPins[i]->setGate(new gateOR());
+      else if(gate_type == "3")
+        oPins[i]->setGate(new gateNOT());
+      else {      // if gate type is wrong, break loop, return false
+        succeed = false;
+        break;
       }
-      else {    // need to review !!!
-        int index = (int(input_pin) % 10000) - 1;
-        oPins[i]->getGate()->addInputPin(oPins[index]);  // need to review
-        oPins[index]->setCircuitOPinFalse();
+
+      // read connections
+      string input_pin;
+      while(fin >> input_pin && input_pin != "0") {
+        // convert string to float
+        float input_val = Util::stof(input_pin);
+        cout << input_val << endl;
+
+        if(input_val < 0) {       // need to review !!!
+          int index = abs(int(input_val)) - 1;
+          oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range
+        }
+        else {    // need to review !!!
+          int index = (int(input_val) % (INT_MAX / 2)) - 1;
+          oPins[i]->getGate()->addInputPin(oPins[index]);  // need to review
+          oPins[index]->setCircuitOPinFalse();
+        }
       }
-    }
+    }  // for-loop
   }
-  fin.close();
+  catch (const invalid_argument& ex) {
+    succeed = false;
+  }
+  catch (const out_of_range& ex) {
+    succeed = false;
+  }
 
-  return true;
+  fin.close();
+  return succeed;
 }
 
 void LogicSimulator::setloaded() {
