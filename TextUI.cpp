@@ -15,7 +15,7 @@ void TextUI::displayMenu() {
 
 void TextUI::processCommand() {
   string command = "";
-  while(cin >> command && command != "4") {
+  while(cin >> command) {
     if(command == "1") {
       if(loadCircuit())
         displayCircuit();
