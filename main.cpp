@@ -7,5 +7,7 @@ int main() {
   TextUI textUI(LS);
   textUI.displayMenu();
   textUI.processCommand();
+  delete LS;
+
   return 0;
 }

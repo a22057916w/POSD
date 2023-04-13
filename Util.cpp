@@ -1,32 +1,24 @@
 #include "Util.h"
 
 #include <string>
+#include <vector>
 
-using std::string;
-
-template <typename T>
-int Util<T>::stoi(string s) {
+// handle invalid_argument exception
+int Util::stoi(std::string s) {
   size_t pos;
-  float val = std::stoi(s, &pos);
+  int val = std::stoi(s, &pos);
   if(pos < s.size())
     throw std::invalid_argument("string contain non-digital characte");
 
   return val;
 }
 
-template <typename T>
-float Util<T>::stof(string s) {
+// handle invalid_argument exception
+float Util::stof(std::string s) {
   size_t pos;
-  float val = std::stof(s, &pos);  // set to float
+  float val = std::stof(s, &pos);
   if(pos < s.size())
     throw std::invalid_argument("string contain non-digital characte");
 
   return val;
-}
-
-template <typename T>
-void Util<T>::clearVectorPointer(vector<T*> &v) {
-  for(auto ptr : v)
-    delete ptr;
-  v.clear();
 }

@@ -36,6 +36,9 @@ private:
   void drawSimulationTable();
 
 public:
+  // release the memory of vector<*>
+  ~LogicSimulator();
+
   // load
   bool load(string filename);
   inline bool isLoaded() { return is_loaded; };

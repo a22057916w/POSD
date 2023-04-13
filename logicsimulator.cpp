@@ -14,6 +14,13 @@
 
 using namespace std;
 
+LogicSimulator::~LogicSimulator() {
+  Util::clearVectorPointer(iPins);
+  Util::clearVectorPointer(oPins);
+}
+
+// *********************** private method ****************************
+
 void LogicSimulator::setCircuitLayout() {
   // count the circuit output
   int circuitOut = 0;
@@ -183,23 +190,27 @@ void LogicSimulator::calTruthTable() {
 bool LogicSimulator::load(string filename) {
   bool succeed = true;
 
-  ifstream fin(filename, std::ios::in);
+  // if there is already a circuit read, reset
+  if(is_loaded) {
+    // claer the previous circuit
+    Util::clearVectorPointer(iPins);
+    Util::clearVectorPointer(oPins);
 
-  // if file is not open corretly, return false
+    // reset the id_loaded flag
+    setLoaded(false);
+  }
+
+  // read file, if file is not open corretly, return false
+  ifstream fin(filename, std::ios::in);
   if(!fin.is_open())
     return false;
 
+  // handle the string-to-number excption
   try {
-    // reset the id_loaded flag
-    setLoaded(false);
-
+    // read nubmer of input pin and gate
     string iPin_size, gates;
     fin >> iPin_size;
     fin >> gates;
-
-    // claer the previous circuit
-    iPins.clear();
-    oPins.clear();
 
     // resize vector size by inputs
     iPins.resize(Util::stoi(iPin_size));

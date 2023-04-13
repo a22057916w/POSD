@@ -4,14 +4,21 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::vector;
 
-template <typename T>
 class Util {
 public:
-  static int stoi(string s);
-  static float stof(string s);
+  static int stoi(std::string s);
+  static float stof(std::string s);
 
-  static void clearVectorPointer(vector<T*> &v);
+  template <typename T>
+  static void clearVectorPointer(std::vector<T*> &v);
 };
+
+#include "Util.tpp"
+
+// template <typename T>
+// void Util::clearVectorPointer(std::vector<T*> &v) {
+//   for(auto ptr : v)
+//     delete ptr;
+//   v.clear();
+// }
