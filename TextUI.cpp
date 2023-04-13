@@ -14,7 +14,9 @@ void TextUI::displayMenu() {
 }
 
 void TextUI::processCommand() {
-  string command = "";
+  string command;
+  string exitMsg = "Goodbye, thanks for using LS.";
+
   while(cin >> command) {
     if(command == "1") {
       if(loadCircuit())
@@ -28,7 +30,7 @@ void TextUI::processCommand() {
       displayTruthTable();
     }
     else if(command == "4") {
-      cout << "Goodbye, thanks for using LS." << endl;
+      cout << exitMsg << endl;
       break;
     }
     else
