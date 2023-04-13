@@ -2,6 +2,8 @@
 
 #include "Logicsimulator.h"
 
+#include <string>
+
 using namespace std;
 
 class TextUI {
@@ -18,8 +20,6 @@ private:
 
   // command: 3
   void displayTruthTable();
-  void Exit();
-
 public:
   TextUI(LogicSimulator *_LS): LS(_LS) {};
 
