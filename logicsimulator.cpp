@@ -205,7 +205,7 @@ bool LogicSimulator::load(string filename) {
   if(!fin.is_open())
     return false;
 
-  // handle the string-to-number excption
+  // handle string-to-number excption
   try {
     // read nubmer of input pin and gate
     string iPin_size, gates;
