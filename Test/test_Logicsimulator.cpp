@@ -1,6 +1,7 @@
 #include "LogicSimulator.h"
 
 #include <iostream>
+#include <string>
 #include <cassert>
 #include <vector>
 
