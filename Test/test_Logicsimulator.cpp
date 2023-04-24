@@ -9,6 +9,8 @@
 #include "..\GateAND.h"
 #include "..\GateNOT.h"
 #include "..\GateOR.h"
+#include "..\iPin.h"
+#include "..\oPin.h"
 
 typedef vector<vector<int>> vvi;
 
