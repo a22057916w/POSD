@@ -1,13 +1,13 @@
-#include "LogicSimulator.h"
+#include "..\LogicSimulator.h"
 
 #include <iostream>
 #include <string>
 #include <cassert>
 #include <vector>
 
-#include "GateAND.h"
-#include "GateNOT.h"
-#include "GateOR.h"
+#include "..\GateAND.h"
+#include "..\GateNOT.h"
+#include "..\GateOR.h"
 
 typedef vector<vector<int>> vvi;
 
