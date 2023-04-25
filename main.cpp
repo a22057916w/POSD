@@ -1,5 +1,5 @@
-#include "logicsimulator.h"
-#include "TextUI.h"
+#include "src\logicsimulator.h"
+#include "src\TextUI.h"
 #include <iostream>
 
 int main() {
@@ -7,7 +7,6 @@ int main() {
   TextUI textUI(LS);
   textUI.displayMenu();
   textUI.processCommand();
-  delete LS;
 
   return 0;
 }
