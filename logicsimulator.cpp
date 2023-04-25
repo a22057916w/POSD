@@ -246,11 +246,11 @@ bool LogicSimulator::load(string filename) {
 
         if(input_val < 0) {       // need to review !!!
           int index = abs(int(input_val)) - 1;
-          oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range
+          oPins[i]->getGate()->addInputPin(iPins[index]);  // may out of range if the file input is incorrect
         }
         else {    // need to review !!!
           int index = (int(input_val) % (INT_MAX / 2)) - 1;
-          oPins[i]->getGate()->addInputPin(oPins[index]);  // need to review
+          oPins[i]->getGate()->addInputPin(oPins[index]);  // may out of range if the file input is incorrect
           oPins[index]->setCircuitOPinFalse();
         }
       }
