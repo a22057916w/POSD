@@ -1,5 +1,5 @@
-#include "src\logicsimulator.h"
-#include "src\TextUI.h"
+#include "src/LogicSimulator.h"
+#include "src/TextUI.h"
 #include <iostream>
 
 int main() {

@@ -1,4 +1,4 @@
-#include "logicsimulator.h"
+#include "LogicSimulator.h"
 
 #include <iostream>
 #include <string>

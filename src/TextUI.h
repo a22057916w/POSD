@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Logicsimulator.h"
+#include "LogicSimulator.h"
 
 #include <string>
 
