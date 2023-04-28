@@ -1,4 +1,9 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
+
+if(WINDOWS)
+  # specify the generator at configuration 
+  set(CMAKE_GENERATOR "MinGW Makefiles")
+endif()
 
 project(LogicSimulator)
 
