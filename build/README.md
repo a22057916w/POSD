@@ -1,1 +1,1 @@
-Convetionlly, this directory(/build) is where cmake puts makefile
+### Convetionlly, this directory is where cmake puts makefile and configs.
