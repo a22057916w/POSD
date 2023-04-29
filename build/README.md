@@ -1,1 +1,1 @@
-### Convetionlly, this directory is where cmake puts makefile and configs.
+#### Convetionlly, this is where 'cmake' puts makefile and configs.
