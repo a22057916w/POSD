@@ -5,7 +5,7 @@
 * UML Class Diagram (MVC)
 
 ## C++
-* Memory management (vecotr)
+* Memory management (vector)
 * Classes relation
 * Template header
 * File
