@@ -11,7 +11,9 @@
 * File (fstream)
 
 ## Class Diagram
-<img src=".meta/ClassDiagram.PNG" width=300 height=300 />
+<p align="center">
+  <img src=".meta/ClassDiagram.PNG" width=600 height=600 />
+</p>
 
 ## Reference
 * [Why can templates only be implemented in the header file?](https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file?noredirect=1&lq=1)
