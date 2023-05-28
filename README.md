@@ -15,6 +15,9 @@
   <img src=".meta/ClassDiagram.PNG" width=600 height=600 />
 </p>
 
+* Virtual and Override - Following the convention, I denote pure virtual functions using italic font. Since there is no standard convention for denoting overridden functions, I also use italic font and add the label `overrided` at the return position of the function.
+* Inheritance - The convention suggests that inherited functions in the derived class should be written with a `different color`. However, due to limitations in my IDE's font color customization, I made the decision to not include the inherited functions in my derived class (which may not be ideal).
+
 ## Reference
 * [Why can templates only be implemented in the header file?](https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file?noredirect=1&lq=1)
 * [C++ 讀檔，讀取txt文字檔各種範例 | ShengYu Talk](https://shengyu7697.github.io/cpp-read-text-file/)
