@@ -8,10 +8,10 @@
 * Memory management (vector of pointer)
 * Class relation
 * Template header
-* File (fstram)
+* File (fstream)
 
 ## Class Diagram
-![](.meta/ClassDiagram.PNG)
+<img src=".meta/ClassDiagram.PNG" width=300 height=300 />
 
 ## Reference
 * [Why can templates only be implemented in the header file?](https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file?noredirect=1&lq=1)
