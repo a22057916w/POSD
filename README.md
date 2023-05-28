@@ -15,7 +15,7 @@
   <img src=".meta/ClassDiagram.PNG" width=600 height=600 />
 </p>
 
-* **Virtual and Override** - Following the convention, I denote pure virtual functions using italic font. Since there is no standard convention for denoting overridden functions, I also use italic font and add the label `overrided` at the return position of the function.
+* **Virtual and Override** - Following the convention, I denote pure virtual functions using italic font. Since there is no standard convention for denoting overridden functions, I also use italic font and add the label `overrided` at the return position of the function. <br><br>
 * **Inheritance** - The convention suggests that inherited functions in the derived class should be written with a `different color`. However, due to limitations in my IDE's font color customization, I made the decision to not include the inherited functions in my derived class (which may not be ideal).
 
 ## Reference
